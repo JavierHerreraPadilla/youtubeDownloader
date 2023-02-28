@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1">Download Youtube Videos as MP3</h1>
+        <p class="lead">Just copy and paste the youtube video url</p>
+
+        <div class="container shadow-lg">
+
+            {% if yt %}
+            #######
+<div id="simpleModal" class="modal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+
+ <div class="modal-dialog text-center">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="staticBackdropLabel">DESCARGAR: {{ yt.title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center border d-flex aligns-items-center justify-content-center">
+
+                    <div class="card text-center" style="width: 18rem;">
+                      <a href="{{ url_for('unique', vid_id=yt.vid_info.get('videoDetails').get('videoId')) }}" style="text-decoration:none;">
+                      <img class="card-img-top" src={{ yt.thumbnail_url }} alt="Card image cap">
+
+                      <div class="card-body">
+                        <h5 class="card-title">{{ yt.title }}</h5>
+                      </div>
+                      </a>
+                    </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-primary" href="{{ url_for('home') }}">Busca otra</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+       {% elif list %}
+
+<div id="simpleModal" class="modal modal-xl" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+
+ <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">RESULTADOS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        #modal content
+          <div class="card-group">
+            {% for result in list[:6] %}
+                <a href="{{ url_for('unique', vid_id=result.vid_info.get('videoDetails').get('videoId')) }}" style="text-decoration:none;">
+
+                  <div class="card">
+                        <img class="card-img-top" src={{ result.thumbnail_url }} alt="Card image cap">
+
+                        <div class="card-body">
+                          <h6 class="card-title">{{ result.title }}</h6>
+                          <p class="card-text"><small class="text-muted">Vistas: {{ result.views }}</small></p>
+                        </div>
+
+                  </div>
+                </a>
+            {% endfor %}
+              </div>
+
+        ##### close modal content
+
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-primary" href="{{ url_for('home') }}">Busca otra</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+            {% endif %}
+
+
+          <form method="post" action="{{ url_for('home') }}">
+             <br>
+    <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        URL
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+                 <input name='url' type="text" class="form-control" placeholder="https://youtu.be/6TwioIc6a_8">
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        SEARCH
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      <input name='buscar' type="text" class="form-control" placeholder="Lágrimas Negras" data-bs-toggle="modal">
+      </div>
+    </div>
+  </div>
+    </div>
+        <br>
+         <input type="submit" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" value="Buscar">
+
+
+          </form>
+            <br>
+            </div>
+
+
+      </div>
+
+
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+          <img width="450" class="rounded-lg-3" src="https://banner2.cleanpng.com/20200626/uqf/transparent-youtube-logo-icon-5ef5bb5b8d3da6.0851340715931625875785.jpg" alt="" >
+      </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Se descargó {{ yt.title }} en {{ st_path}}</h1>
+<a href="{{ url_for('downloaded', file_name=yt.title+'.mp3') }}">Descargar</a>
+{% endblock %}

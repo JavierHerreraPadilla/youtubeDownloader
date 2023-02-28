@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for result in rs_lst[:3] %}
+    <h1><a href="{{ url_for('unique', vid_id=result.vid_info.get('videoDetails').get('videoId')) }}">* {{ result.title }} <img src="{{ result.thumbnail_url }}"></a></h1>
+{% endfor %}
+{% endblock %}
